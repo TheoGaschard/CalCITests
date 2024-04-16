@@ -26,3 +26,19 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+    
+  notif:
+    if: ${{ always() }} 
+
+    runs-on: ubuntu-latest
+
+    needs:
+      - build
+      - deploy
+
+    steps:
+      - uses: nobrayner/discord-webhook@v1
+        with:
+          title: Deploy discord bot {{STATUS}}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          discord-webhook: ${{ secrets.DISCORD_WEBHOOK }}
