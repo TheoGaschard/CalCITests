@@ -1,4 +1,4 @@
-name: Add Update to updates.txt
+name: updates file
 
 on:
   push:
