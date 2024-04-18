@@ -28,3 +28,30 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: add-update
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Deploy to server
+      run: |
+        # Logic to deploy to server
+        # Replace this with your deployment script or commands
+        echo "Deploying to server..."
+
+
+  rollback:
+    needs: deploy
+    runs-on: ubuntu-latest
+    if: failure()
+
+    steps:
+    - name: Rollback deployment
+      run: |
+        # Logic to perform rollback
+        # Replace this with your rollback script or commands
+        echo "Rolling back deployment..."
