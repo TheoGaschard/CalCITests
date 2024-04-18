@@ -1,0 +1,29 @@
+name: Add Update to updates.txt
+
+on:
+  push:
+    paths:
+      - 'notes/**'
+
+jobs:
+  add-update:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Append update to updates.txt
+      run: echo "Update: $(date)" >> updates.txt
+
+    - name: Commit changes
+      run: |
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions"
+        git add updates.txt
+        git commit -m "Add update"
+      
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
