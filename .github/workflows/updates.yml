@@ -15,6 +15,7 @@ jobs:
       
     - name: Append update to updates.txt
       run: echo "Update: $(date)" >> updates.txt
+      shell: bash
 
     - name: Commit changes
       run: |
